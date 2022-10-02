@@ -1,38 +1,61 @@
-// SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.9;
+// SPDX-License-Identifier: MIT
 
-// Uncomment this line to use console.log
-// import "hardhat/console.sol";
+
+
 
 contract Lock {
-    uint public unlockTime;
+
+
+    // Setting the balance of contract and donator infos
+     uint public unlockTime;
     address payable public owner;
 
     event Withdrawal(uint amount, uint when);
 
     constructor(uint _unlockTime) payable {
-        require(
-            block.timestamp < _unlockTime,
-            "Unlock time should be in the future"
-        );
+     
 
         unlockTime = _unlockTime;
-        owner = payable(msg.sender);
     }
 
-    function test() public pure returns(uint){
-        return 31;
+    uint public balance = address(this).balance;
+
+    struct Donator {
+        address _address;
+        string message;
+        uint256 amount;
     }
 
-    function withdraw() public {
-        // Uncomment this line, and the import of "hardhat/console.sol", to print a log in your terminal
-        // console.log("Unlock time is %o and block timestamp is %o", unlockTime, block.timestamp);
+    Donator[] public donators;
 
-        require(block.timestamp >= unlockTime, "You can't withdraw yet");
-        require(msg.sender == owner, "You aren't the owner");
+    // Event for donation
 
-        emit Withdrawal(address(this).balance, block.timestamp);
+    event NewDonate (
+        uint indexed date,
+        uint256 indexed amount,
+        address indexed __address
+    );
 
-        owner.transfer(address(this).balance);
+    function getDonate(string calldata _message) payable external {
+        donators.push(Donator({
+        _address: msg.sender,
+        message: _message,
+        amount: msg.value
+        }));
+        
     }
+
+    function getBalance() view external returns(uint){
+        return address(this).balance;
+    }
+
+    function getDonators() external view returns(Donator[] memory){
+        return donators;
+    }
+
+
+    
+
+
 }

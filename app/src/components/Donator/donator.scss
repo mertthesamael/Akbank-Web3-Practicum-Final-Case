@@ -3,8 +3,20 @@
     border: 1px solid #000000;
     border-radius: 20px;
     justify-content: space-between;
-    padding: 0.5rem 2rem;
+    padding: 1rem 2rem;
     align-items: center;
     margin: 1rem auto;
     width: 80%;
+    height: max-content;
+    
+    &__address{
+        display: flex;
+
+        &__adr{
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow:hidden;
+            width: 61px;
+        }
+    }
 }

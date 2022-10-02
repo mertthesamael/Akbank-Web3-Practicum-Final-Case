@@ -8,18 +8,17 @@ const Donator = (props) => {
 
             <div className="donator__address">
 
-                <h1>Donator</h1>
-
+                <h1 className="donator__address__adr">{props.addr}</h1>
             </div>
 
             <div className="donator__amount">
 
-                <h1>50ETH</h1>
+                <h1>3</h1>
             
             </div>
 
             <div className="donator__date">
-                <h1>02.10.2022</h1>
+                <h1>{props.msg}</h1>
             </div>
 
         </div>
