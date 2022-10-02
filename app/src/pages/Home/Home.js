@@ -7,7 +7,7 @@ import { parseEther } from "ethers/lib/utils";
 
 const Home = (props) => {
 
-    const ca = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
+    const ca = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0";
 
     const [balance, setBalance] = useState()
     const [donators, setDonators] = useState([])
@@ -25,11 +25,9 @@ const Home = (props) => {
             try {
                     const data = await contract.getBalance()
                     const data2 = await contract.getDonators()
-                    
-                    setBalance(data.toNumber())
-                  setDonators(data2)
-                    console.log(balance)
-                    console.log(donators.map(x=>x.amount.toBigInt()))
+                    setBalance(ethers.utils.formatEther(data.toBigInt()))
+                    setDonators(data2)
+                    console.log(donators.map(x=>x.amount.toNumber()))
             }catch(er){
                 console.log(er)
             }
@@ -46,15 +44,14 @@ useEffect(() => {
             const signerAddress = await signer.getAddress
             const contract = new ethers.Contract(ca, Donate.abi, signer);
             const gasprice = await provider.getGasPrice();
-           console.log(signer)
+            console.log(e.target[1].value.toString())
             try {
                 await signer.sendTransaction({
                     to:ca,
-                    value: parseEther("1.0"),
-                    gasLimit: "2100000" ,
-                    gasPrice: "21000000003553" ,
+                    value: parseEther(e.target[1].value.toString()),
+                    gasLimit: 50000,
                 })
-                const data = await contract.getDonate(e.target[0].value)
+                const data = await contract.getDonate(e.target[0].value, e.target[1].value)
                 const data2 = await contract;
                 console.log(data2)
               
@@ -83,6 +80,7 @@ useEffect(() => {
                     <div className="bodywrapper__right__donate__form container mx-auto">
                         <form onSubmit={getData}>
                             <input type='text'></input>
+                            <input type='number'></input>
                             <input type='submit'></input>
                         </form>
 
@@ -92,7 +90,7 @@ useEffect(() => {
 
                 <div className="bodywrapper__right__donators">
 
-                    {donators.map(x=><Donator addr={x._address} amount={x.amount} msg={x.message}/>)}
+                    {donators.map(x=><Donator addr={x._address} amount={x.amount.toNumber()} msg={x.message}/>)}
                 </div>
 
             </div>

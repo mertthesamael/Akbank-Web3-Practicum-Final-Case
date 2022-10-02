@@ -13,7 +13,7 @@ const Donator = (props) => {
 
             <div className="donator__amount">
 
-                <h1>3</h1>
+                <h1>{props.amount}</h1>
             
             </div>
 

@@ -36,12 +36,14 @@ contract Lock {
         uint256 indexed amount,
         address indexed __address
     );
-
-    function getDonate(string calldata _message) payable external {
+receive() external payable{
+    balance += msg.value;
+}
+    function getDonate(string calldata _message, uint _amount) payable external {
         donators.push(Donator({
         _address: msg.sender,
         message: _message,
-        amount: msg.value
+        amount: _amount
         }));
         
     }
