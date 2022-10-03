@@ -8,12 +8,12 @@ const Donator = (props) => {
 
             <div className="donator__address">
 
-                <h1 className="donator__address__adr">{props.addr}</h1>
+                <a href={`https://etherscan.io/address/${props.addr}`} target={'_blank'} className="donator__address__adr">{props.addr}</a>
             </div>
 
             <div className="donator__amount">
 
-                <h1>{props.amount}</h1>
+                <h1>{props.amount}ETH</h1>
             
             </div>
 

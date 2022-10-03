@@ -13,12 +13,15 @@ async function main() {
 
 
   const Lock = await hre.ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(1);
+  const lock = await Lock.deploy();
+  const Lock2 = await hre.ethers.getContractFactory("Lock2");
+  const lock2 = await Lock2.deploy();
 
   await lock.deployed();
+  await lock2.deployed();
 
   console.log(
-    `Lock with 1 ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
+    `Lock with 1 ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}, ${lock2.address}`
   );
 }
 
