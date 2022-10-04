@@ -17,10 +17,10 @@ const MainCampaign = (props) => {
                 <h1>{`Thank you for donating ${data.recentDonate?.amnt}ETH !`}</h1>
             </div>
 
-            <div className="bodywrapper__left">
+            <div className={data.campaignState ? "bodywrapper__left": "bodywrapper__left campaign__end"}>
 
                 <div className="bodywrapper__left__balance">
-                    <h1>{data.balance}ETH</h1>
+                    <h1>{data.campaignState ? data.balance +'ETH' :'Campaign has reached the goal, thank you for your support !'}</h1>
                 </div>
 
             </div>

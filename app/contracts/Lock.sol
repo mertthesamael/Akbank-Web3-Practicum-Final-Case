@@ -3,20 +3,23 @@ pragma solidity ^0.8.9;
 
 
 
-
 contract Lock {
 
 
-    // Setting the balance of contract and donator infos
-     uint public unlockTime;
+    // Setting the balance of contract, donator infos and some other variables.
+    uint public unlockTime;
     address payable public owner;
-
-    event Withdrawal(uint amount, uint when);
-
-   
-
+    string public campaignName;
+    bool public isActive;
+    uint public goal;
     uint public balance = address(this).balance;
 
+    constructor(string memory _campaignName, bool _isActive, uint _goal ){
+        campaignName = _campaignName;
+        isActive = _isActive;
+        goal = _goal;
+    }
+   
     struct Donator {
         address _address;
         string message;
@@ -24,6 +27,10 @@ contract Lock {
     }
 
     Donator[] public donators;
+
+    receive() external payable{
+        balance += msg.value;
+    }
 
     // Events
 
@@ -39,14 +46,14 @@ contract Lock {
         string errText
 
     );
-receive() external payable{
-    balance += msg.value;
-}
-    function getDonate(string calldata _message, uint _amount) payable external {
 
+    
+
+
+    function getDonate(string calldata _message, uint _amount) payable external {
+        require(isActive == true, "Campaign has reached the goal, thank you for your support !");
         require(_amount > 0, "Donation must be > 0");
         if(msg.sender.balance >= _amount){
-
         donators.push(Donator({
         _address: msg.sender,
         message: _message,
@@ -57,7 +64,9 @@ receive() external payable{
         }else{
             emit TsxFail(_amount, msg.sender, "Insufficient Balance");
         }
-        
+         if(address(this).balance >= goal){
+        isActive = false;
+    }
     }
 
     function getBalance() view external returns(uint){
@@ -71,9 +80,6 @@ receive() external payable{
     function getDonators() external view returns(Donator[] memory){
         return donators;
     }
-
-
-    
 
 
 }

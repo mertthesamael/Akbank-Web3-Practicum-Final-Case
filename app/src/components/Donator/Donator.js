@@ -9,6 +9,7 @@ const Donator = (props) => {
             <div className="donator__address">
 
                 <a href={`https://etherscan.io/address/${props.addr}`} target={'_blank'} className="donator__address__adr">{props.addr}</a>
+                
             </div>
 
             <div className="donator__amount">

@@ -11,6 +11,8 @@ const [balance, setBalance] = useState()
 const [donators, setDonators] = useState([])
 const [recentDonate, setRecentDonate] = useState()
 const [user, setUser] = useState()
+const [goal, setGoal] = useState()
+const [campaignState, setCampaignState] = useState(true)
 
 async function requestAcc() {
     await window.ethereum.request({method: 'eth_requestAccounts'})
@@ -30,10 +32,15 @@ async function fetch(){
             const data2 = await contract.getDonators()
             const signer = provider.getSigner();
             const data3 = await contract.userBalance(await signer.getAddress())
-            console.log(ethers.utils.formatEther(data3.toBigInt()))
+            const data4 = await contract.goal()
+            const data5 = await contract.isActive()
+            console.log(data5)
+            console.log(ethers.utils.formatEther(data4.toBigInt()))
             setUser(ethers.utils.formatEther(data3.toBigInt()))
             setBalance(ethers.utils.formatEther(data.toBigInt()))
             setDonators(data2)
+            setGoal(ethers.utils.formatEther(data4.toBigInt()))
+            setCampaignState(data5)
         }catch(er){
             console.log(er)
         }
@@ -52,7 +59,6 @@ const checkEvents = async() => {
             dt:date,
             amnt:amount
         })
-        console.log("Got the event",date, from, amount.toString())
         document.querySelector(".thanks").style.opacity = 1;
         setTimeout(()=>{
             document.querySelector(".thanks").style.opacity = 0;
@@ -67,7 +73,6 @@ const checkEvents = async() => {
             const signerAddress = await signer.getAddress
             const contract = new ethers.Contract(ca, abi.abi, signer);
             const gasprice = await provider.getGasPrice();
-            console.log(e.target[1].value.toString())
             try {
                
                 await signer.sendTransaction({
@@ -87,14 +92,16 @@ const checkEvents = async() => {
     }
 useEffect(() => {
     requestAcc()
-fetch()
+    fetch()
 },[recentDonate, location])
 return {
     balance,
     donators,
     recentDonate,
     user,
-    getData
+    getData,
+    goal,
+    campaignState
 }
 }
 

@@ -1,6 +1,8 @@
 .home{
     height: 80vh;
     min-width: 80vw;
+    border-radius: 50px;
+    
 }
 
 .bodywrapper{
@@ -8,6 +10,7 @@
     grid-template-columns: repeat(2,1fr);
     background-color: #F7F7F7;
     position: relative;
+    box-shadow: 0 0 15px 5px rgb(0, 0, 0);
     &__left{
         height: 100%;
 
@@ -25,7 +28,6 @@
         flex-direction: column;
         &__donate{
             height: 100%;
-            background-color: violet;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -39,23 +41,30 @@
 
 
                 & form{
+
                     width: 50%;
                     height: 100%;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
                     justify-content: space-evenly;
+
                     & input{
 
                         outline: none;
                         border: none;
-                    }
-                    & input[type=text],input[type=number]{
                         width: 100%;
+                        border-radius: 50px;
+                        padding: 0.5rem 1rem;
+                        border: 2px solid #ffa260 ;
+
+                    }
+
+                    & input[type=text],input[type=number]{
+                        background-color: rgba(128, 128, 128, 0.082);
                     }
 
                     & input[type=submit]{
-                        border: 1px solid white;
                         width: max-content;
                     }
 
@@ -71,6 +80,8 @@
             flex-direction: column;
             background-color: orangered;
             overflow: auto;
+            border-radius: 0 0 50px 0px;
+
         }
     }
 
@@ -89,12 +100,20 @@
     justify-content: center;
     height: 5vh;
     opacity: 0;
-    
     transition: all 2s ease-in-out;
-    background-color: green;
+    background-color: #00C897;
+    color: white;
+    font-weight: bolder;
+    border-radius: 50px;
 }
 
-
+.campaign__end{
+    background-color: greenyellow;
+    color: white;
+    text-align: center;
+    border-radius: inherit;
+    box-shadow: 0 0 30px -10px rgba(0, 0, 0, 0.507);
+}
 
 @media screen and (max-width: 1000px) {
     .bodywrapper{
@@ -102,9 +121,13 @@
         grid-template-columns: repeat(1,1fr);
 
         &__left{
+            height: 100%;
             &__balance{
                 font-size: 40px;
             }
+        }
+        &__right{
+            height: 100%;
         }
     }
 }

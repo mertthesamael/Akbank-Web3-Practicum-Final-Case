@@ -1,9 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400&display=swap');
 
 html{
+  // background: rgb(255,211,101);
+  // background: linear-gradient(148deg, rgba(255,211,101,1) 0%, rgba(255,162,96,1) 70%);
   background-color: #393E46;
 }
 
@@ -18,5 +20,8 @@ html{
 }
 
 *{
+  font-family: 'Nunito';
+  letter-spacing: 1.4px;
   margin: 0;
+  box-sizing: border-box;
 }
