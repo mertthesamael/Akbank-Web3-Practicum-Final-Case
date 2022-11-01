@@ -53,6 +53,7 @@ const checkEvents = async() => {
     const signer = provider.getSigner();
     
     const contract = new ethers.Contract(ca, abi.abi, signer);
+
     contract.on("NewDonate", (date, amount, from) => {
         setRecentDonate({
             addr:from,
@@ -66,6 +67,40 @@ const checkEvents = async() => {
         },4000)
     })
 }
+
+const withDrawn = async () => {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+
+        const contract = new ethers.Contract(ca, abi.abi, signer)
+        let signerAddress = await contract.signer.getAddress()
+      console.log(signerAddress)
+        if(signerAddress ==0xcd3B766CCDd6AE721141F452C550Ca635964ce71){
+
+            console.log(contract.withdraw())
+        }
+        else{
+            console.log("YOU ARE NOT THE OWNER")
+            document.querySelector(".error").style.opacity = 1;
+        setTimeout(()=>{
+            document.querySelector(".error").style.opacity = 0;
+            
+        },4000)
+        }
+        try{
+            await ca.sendTransaction({
+                to:'0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9',
+                value: parseEther('1'),
+                gasLimit: 50000,
+            })
+        }
+        catch(er){
+            console.log(er)
+        }
+}
+        
+        
+        
  const getData = async (e) => {
         e.preventDefault()
             const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -101,7 +136,8 @@ return {
     user,
     getData,
     goal,
-    campaignState
+    campaignState,
+    withDrawn
 }
 }
 

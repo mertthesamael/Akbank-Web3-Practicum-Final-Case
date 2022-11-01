@@ -14,9 +14,9 @@ async function main() {
 
 
   const Lock = await hre.ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy("I NEED A LAPTOP", true, ethers.utils.parseEther("99"));
+  const lock = await Lock.deploy("Food for little friends", true, ethers.utils.parseEther("99"));
   const Lock2 = await hre.ethers.getContractFactory("Lock2");
-  const lock2 = await Lock2.deploy("I NEED FOOD AMK", true, ethers.utils.parseEther("99"));
+  const lock2 = await Lock2.deploy("To save penguins", true, ethers.utils.parseEther("99"));
 
   await lock.deployed();
   await lock2.deployed();

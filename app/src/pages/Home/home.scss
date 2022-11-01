@@ -10,16 +10,30 @@
     grid-template-columns: repeat(2,1fr);
     background-color: #F7F7F7;
     position: relative;
-    box-shadow: 0 0 15px 5px rgb(0, 0, 0);
+    box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.534);
     &__left{
         height: 100%;
-
+        position: relative;
+        z-index: 12;
         &__balance{
             display: flex;
+            flex-direction: column;
             align-items:center;
             height: 100%;
             font-size: 80px;
             justify-content: center;
+            position: relative;
+            z-index: 12;
+            &__progress{
+                width: 100%;
+                transition: all 1s ease;
+                height: 100%;
+                background-color: #00C897;
+                position: absolute;
+                z-index: -1;
+    border-bottom-left-radius: 50px;
+
+            }
         }
     }
 
@@ -78,7 +92,8 @@
             display:grid;
             height: 100%;
             flex-direction: column;
-            background-color: orangered;
+            background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+
             overflow: auto;
             border-radius: 0 0 50px 0px;
 
@@ -106,7 +121,24 @@
     font-weight: bolder;
     border-radius: 50px;
 }
-
+.error{
+    position: absolute;
+    top: 5%;
+    width: 80%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 5vh;
+    opacity: 0;
+    transition: all 2s ease-in-out;
+    background-color: red;
+    color: white;
+    font-weight: bolder;
+    border-radius: 50px;
+}
 .campaign__end{
     background-color: greenyellow;
     color: white;
@@ -124,10 +156,48 @@
             height: 100%;
             &__balance{
                 font-size: 40px;
+
+                
             }
         }
         &__right{
             height: 100%;
         }
+    }
+}
+
+.bodywrapper::after {
+    content: "";
+    background: linear-gradient(-45deg,
+            #ef00fa 0%,
+            #fc2c71 10%,
+            #fdd0af 20%,
+            #ffc000 30%,
+            #ffe400 40%,
+            #c7ff00 50%,
+            #00ecff 60%,
+            #00ffd7 70%,
+            #f000ff 80%,
+            #e604ee 90%) repeat 0% 0% / 300% 100%;
+    position: absolute;
+    inset: -2px;
+    filter: blur(8px);
+    border-radius: 50px;
+    z-index: -1;
+    animation: rgb 8s linear infinite;
+}
+
+
+@keyframes rgb {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    10% {
+        background-position: 0% 50%;
     }
 }

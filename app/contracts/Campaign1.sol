@@ -8,16 +8,20 @@ contract Lock {
 
     // Setting the balance of contract, donator infos and some other variables.
     uint public unlockTime;
-    address payable public owner;
+    address public owner;
     string public campaignName;
     bool public isActive;
     uint public goal;
     uint public balance = address(this).balance;
+    address public own = 0xFABB0ac9d68B0B445fB7357272Ff202C5651694a;
+    
 
     constructor(string memory _campaignName, bool _isActive, uint _goal ){
         campaignName = _campaignName;
         isActive = _isActive;
         goal = _goal;
+        owner = 0xcd3B766CCDd6AE721141F452C550Ca635964ce71;
+
     }
    
     struct Donator {
@@ -25,7 +29,10 @@ contract Lock {
         string message;
         uint256 amount;
     }
-
+    modifier ownerCeck(){
+        require(msg.sender == owner);
+        _;
+    }
     Donator[] public donators;
 
     receive() external payable{
@@ -47,7 +54,11 @@ contract Lock {
 
     );
 
-    
+    function withdraw() external payable ownerCeck returns(bool) {
+        payable(own).transfer(address(this).balance);
+        return true; 
+
+    }
 
 
     function getDonate(string calldata _message, uint _amount) payable external {

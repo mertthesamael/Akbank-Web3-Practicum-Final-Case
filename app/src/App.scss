@@ -25,3 +25,22 @@ html{
   margin: 0;
   box-sizing: border-box;
 }
+
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #555355 #ffffff;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  *::-webkit-scrollbar-track {
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 10px;
+  }

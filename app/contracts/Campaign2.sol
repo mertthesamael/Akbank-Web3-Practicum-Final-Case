@@ -2,7 +2,7 @@ pragma solidity ^0.8.9;
 // SPDX-License-Identifier: MIT
 
 
-import "./Lock.sol";
+import "./Campaign1.sol";
 
 contract Lock2 is Lock{
 constructor(string memory _campaignName, bool _isActive, uint _goal ) Lock(_campaignName, _isActive, _goal){
